@@ -6,7 +6,7 @@ const useAuction = () => {
     return client.post("/auction", {
       startAmount: data.startAmount,
       name: data.itemName,
-      expiration: data.expiration,
+      duration: data.duration,
     });
   };
 

@@ -7,7 +7,7 @@ declare global {
     interface MakeOffer {
       startAmount: number;
       itemName: string;
-      expiration: Date;
+      duration: number;
     }
 
     interface Offer {

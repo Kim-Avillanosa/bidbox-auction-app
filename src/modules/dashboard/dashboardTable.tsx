@@ -9,7 +9,7 @@ import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
-import { humanizeTimeDifference } from "@/shared/utils/humanizeTimeDifference";
+import { convertToDesiredTimezone, calculateDurationRemaining } from "@/shared/utils/humanizeTimeDifference";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";
@@ -43,11 +43,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
 
     const { openModal } = useModalStore();
 
-    const renderUtcTime = (value: Date) => {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        return DateTime.fromISO(value.toString(), { zone: tz }).toJSDate();
-    };
 
     if (data != null && data?.length <= 0) return <div>No Items Found</div>;
 
@@ -78,6 +74,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                             </td>
                             <td>
                                 {item.auction_expiration}
+                                {/* {Intl.DateTimeFormat().resolvedOptions().timeZone} */}
                             </td>
                             <td>
                                 <Badge bg="dark">{item.auction_status}</Badge>

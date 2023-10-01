@@ -1,20 +1,27 @@
-export function humanizeTimeDifference(expirationDate: Date): string {
-  const now = new Date();
+import * as moment from "moment-timezone";
 
-  if (now > expirationDate) {
-    return "Expired";
+export function convertToDesiredTimezone(inputDate: string): string {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const convertedDate = moment.tz(inputDate, "UTC+08").tz(tz);
+  return convertedDate.format("YYYY-MM-DD HH:mm:ss");
+}
+
+export function calculateDurationRemaining(targetDatetime: string): string {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const targetDatetimeMoment = moment.tz(targetDatetime, "UTC+08");
+  const currentDatetimeMoment = moment.tz(targetDatetime);
+
+  if (currentDatetimeMoment.isAfter(targetDatetimeMoment)) {
+    return "The target datetime has already passed."; // Output when the target datetime has passed
   }
 
-  const timeDifference = expirationDate.getTime() - now.getTime();
-  const minutesRemaining = Math.floor(timeDifference / (1000 * 60));
-  const hoursRemaining = Math.floor(minutesRemaining / 60);
-  const daysRemaining = Math.floor(hoursRemaining / 24);
+  const duration = moment.duration(
+    targetDatetimeMoment.diff(currentDatetimeMoment)
+  );
+  const days = duration.days();
+  const hours = duration.hours();
+  const minutes = duration.minutes();
 
-  if (daysRemaining > 0) {
-    return `${daysRemaining}d`;
-  } else if (hoursRemaining > 0) {
-    return `${hoursRemaining}h`;
-  } else {
-    return `${minutesRemaining}m`;
-  }
+  return `${days}d ${hours}h ${minutes}s`; // Output when there's time remaining
 }

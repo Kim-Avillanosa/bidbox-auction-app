@@ -26,6 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
     );
   };
 
-  return <>{isClient ? RenderComponents() : "Server..."}</>;
+  return <>{isClient ? RenderComponents() : RenderComponents()}</>;
   // return <Component {...pageProps} />;
 }

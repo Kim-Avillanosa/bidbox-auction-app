@@ -3,12 +3,15 @@ import Link from "next/link";
 import React from "react";
 import { Button, Navbar, Nav, Container } from "react-bootstrap";
 import DepositButton from "../DepositButton";
+import { useRouter } from "next/router";
 
 const AppBar = () => {
     const { dismiss, currentAccount } = useAuthStore();
 
+    const router = useRouter();
+
     return (
-        <Navbar expand="lg" >
+        <Navbar expand="lg">
             <Container>
                 <Navbar.Brand>
                     <strong>BidBox</strong> 📦
@@ -24,7 +27,10 @@ const AppBar = () => {
                             <Button
                                 className="m-1"
                                 variant="outline-dark"
-                                onClick={() => dismiss()}
+                                onClick={() => {
+                                    router.push("/");
+                                    dismiss();
+                                }}
                             >
                                 Logout ({currentAccount?.userName})
                             </Button>

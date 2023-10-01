@@ -110,6 +110,10 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                         </Button>
                                     </Link>
                                     <Button
+                                        hidden={
+                                            currentAccount != null &&
+                                            item.auction_created_by == currentAccount.userName
+                                        }
                                         onClick={() => {
                                             openModal({
                                                 title: "Place my bid",

@@ -38,9 +38,14 @@ const RegistrationForm = () => {
         onSubmit: (values) => {
             toast
                 .promise(register(values.email, values.password), {
-                    success: `Account successfully created`,
+                    success: `Account successfully registered`,
                     loading: "Please wait",
                     error: (err) => err.response.data.message,
+                })
+                .then((resp) => {
+                    if (resp.status === 201) {
+                        router.push("/");
+                    }
                 });
         },
     });

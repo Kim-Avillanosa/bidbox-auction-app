@@ -9,20 +9,18 @@ import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
-import { humanizeTimeDifference } from "@/shared/utils/humanizeTimeDifference";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";
 
 type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 
-
 interface DashboardOptionsProps {
-    setStatus: (status: OfferStatuses) => void
+    setStatus: (status: OfferStatuses) => void;
 }
 
 const DashboardOptions: React.FC<DashboardOptionsProps> = ({ setStatus }) => {
-
+    const [currentStatus, setlocalStatus] = useState<OfferStatuses>("ONGOING");
 
     const { currentAccount } = useAuthStore();
 
@@ -41,25 +39,34 @@ const DashboardOptions: React.FC<DashboardOptionsProps> = ({ setStatus }) => {
         <div className="d-flex justify-content-between">
             <div className="mt-3">
                 <Button
-                    variant="light"
+                    variant={currentStatus == "PENDING" ? "outline-success" : "light"}
                     size="sm"
-                    onClick={() => setStatus("PENDING")}
+                    onClick={() => {
+                        setStatus("PENDING");
+                        setlocalStatus("PENDING");
+                    }}
                     className="m-1"
                 >
                     🕒 PENDING
                 </Button>
                 <Button
-                    variant="light"
+                    variant={currentStatus == "ONGOING" ? "outline-success" : "light"}
                     size="sm"
-                    onClick={() => setStatus("ONGOING")}
+                    onClick={() => {
+                        setlocalStatus("ONGOING");
+                        setStatus("ONGOING");
+                    }}
                     className="m-1"
                 >
                     ⚡ ONGOING
                 </Button>
                 <Button
-                    variant="light"
+                    variant={currentStatus == "COMPLETED" ? "outline-success" : "light"}
                     size="sm"
-                    onClick={() => setStatus("COMPLETED")}
+                    onClick={() => {
+                        setlocalStatus("COMPLETED");
+                        setStatus("COMPLETED");
+                    }}
                     className="m-1"
                 >
                     ✔️ COMPLETED

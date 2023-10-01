@@ -73,7 +73,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                 </span>
                             </td>
                             <td>
-                                {item.auction_expiration}
+                                {item.auction_expiration.toString()}
                                 {/* {Intl.DateTimeFormat().resolvedOptions().timeZone} */}
                             </td>
                             <td>

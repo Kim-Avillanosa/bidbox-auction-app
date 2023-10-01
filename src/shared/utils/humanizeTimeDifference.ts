@@ -1,38 +1,20 @@
-function humanizeTimeDifference(targetDate: Date | string): string {
-  const currentDate = new Date();
-  const targetDateTime =
-    typeof targetDate === "string" ? new Date(targetDate) : targetDate;
+export function humanizeTimeDifference(expirationDate: Date): string {
+  const now = new Date();
 
-  if (isNaN(targetDateTime.getTime())) {
-    return "Invalid date";
+  if (now > expirationDate) {
+    return "Expired";
   }
 
-  const timeDifference = targetDateTime.getTime() - currentDate.getTime();
+  const timeDifference = expirationDate.getTime() - now.getTime();
+  const minutesRemaining = Math.floor(timeDifference / (1000 * 60));
+  const hoursRemaining = Math.floor(minutesRemaining / 60);
+  const daysRemaining = Math.floor(hoursRemaining / 24);
 
-  const totalSeconds = Math.floor(timeDifference / 1000);
-  const seconds = totalSeconds % 60;
-  const totalMinutes = Math.floor(totalSeconds / 60);
-  const minutes = totalMinutes % 60;
-  const totalHours = Math.floor(totalMinutes / 60);
-  const hours = totalHours % 24;
-  const days = Math.floor(totalHours / 24);
-
-  const timeParts = [];
-
-  if (days > 0) {
-    timeParts.push(`${days} day${days === 1 ? "" : "s"}`);
+  if (daysRemaining > 0) {
+    return `${daysRemaining}d`;
+  } else if (hoursRemaining > 0) {
+    return `${hoursRemaining}h`;
+  } else {
+    return `${minutesRemaining}m`;
   }
-  if (hours > 0) {
-    timeParts.push(`${hours} hour${hours === 1 ? "" : "s"}`);
-  }
-  if (minutes > 0) {
-    timeParts.push(`${minutes} minute${minutes === 1 ? "" : "s"}`);
-  }
-  if (seconds > 0) {
-    timeParts.push(`${seconds} second${seconds === 1 ? "" : "s"}`);
-  }
-
-  return timeParts.join(", ");
 }
-
-export { humanizeTimeDifference };

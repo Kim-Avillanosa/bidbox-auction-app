@@ -15,6 +15,8 @@ import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
+import { DateTime } from "luxon";
+
 type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 
 interface DashboardTableProps {
@@ -40,6 +42,12 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
     const { currentAccount } = useAuthStore();
 
     const { openModal } = useModalStore();
+
+    const renderUtcTime = (value: Date) => {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        return DateTime.fromISO(value.toString(), { zone: tz }).toJSDate();
+    };
 
     if (data != null && data?.length <= 0) return <div>No Items Found</div>;
 
@@ -69,7 +77,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                 </span>
                             </td>
                             <td>
-                                {humanizeTimeDifference(item.auction_expiration.toString())}
+                                {item.auction_expiration}
                             </td>
                             <td>
                                 <Badge bg="dark">{item.auction_status}</Badge>

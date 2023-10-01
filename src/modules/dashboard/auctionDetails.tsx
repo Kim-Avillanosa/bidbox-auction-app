@@ -21,7 +21,6 @@ import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
-import { humanizeTimeDifference } from "@/shared/utils/humanizeTimeDifference";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";

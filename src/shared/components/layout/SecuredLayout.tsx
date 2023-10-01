@@ -18,7 +18,7 @@ const SecuredLayout: React.FC<SecuredLayoutProps> = ({ children }) => {
 
     return (
         <>
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="bottom-right" reverseOrder={false} />
             <AppBar />
             <Container className="mt-3">{children}</Container>
             <ModalProvider />

@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
-            <Toaster position="bottom-center" reverseOrder={false} />
+            <Toaster position="bottom-right" reverseOrder={false} />
             {children}
         </>
     );

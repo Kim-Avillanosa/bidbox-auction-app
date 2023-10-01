@@ -30,7 +30,7 @@ const MakeBidForm: React.FC<MakeBidFormProps> = ({ bidId }) => {
             .promise(bidOffer(bidId, values), {
                 success: `Your bid has been placed`,
                 loading: "Please wait",
-                error: "Bid request failed",
+                error: (err) => err.response.data.message,
             })
             .then((resp) => {
                 formik.setSubmitting(false);

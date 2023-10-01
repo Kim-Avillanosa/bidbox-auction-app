@@ -36,7 +36,7 @@ const SellItemDialog: React.FC = () => {
             .promise(makeOffer(valuesWithSeconds), {
                 success: `🎉 Congratulations! 🎉 Your auction item is now live and ready for bidding. Best of luck with your sale! 💰👍`,
                 loading: "Please wait",
-                error: "Deposit failed",
+                error: (err) => err.response.data.message,
             })
             .then((resp) => {
                 formik.setSubmitting(false);

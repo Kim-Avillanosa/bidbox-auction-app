@@ -9,7 +9,10 @@ import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
-import { convertToDesiredTimezone, calculateDurationRemaining } from "@/shared/utils/humanizeTimeDifference";
+import {
+    convertToDesiredTimezone,
+    calculateDurationRemaining,
+} from "@/shared/utils/humanizeTimeDifference";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";
@@ -42,8 +45,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
     const { currentAccount } = useAuthStore();
 
     const { openModal } = useModalStore();
-
-
 
     if (data != null && data?.length <= 0) return <div>No Items Found</div>;
 
@@ -92,7 +93,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                             toast.promise(startOffer(item.auction_id), {
                                                 success: `Your bid has been placed`,
                                                 loading: "Please wait",
-                                                error: "Bid request failed",
+                                                error: (err) => err.response.data.message,
                                             });
                                         }}
                                         variant="light"

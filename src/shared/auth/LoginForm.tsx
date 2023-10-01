@@ -38,7 +38,7 @@ const LoginForm = () => {
                 .promise(login(values.email, values.password), {
                     success: `Welcome! ${values.email}`,
                     loading: "Please wait",
-                    error: "Access Denied",
+                    error: (err) => err.response.data.message,
                 })
                 .then((resp) => {
                     if (resp.status === 200) {

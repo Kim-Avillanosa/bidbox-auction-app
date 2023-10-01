@@ -40,7 +40,7 @@ const RegistrationForm = () => {
                 .promise(register(values.email, values.password), {
                     success: `Account successfully created`,
                     loading: "Please wait",
-                    error: "Cannot process request",
+                    error: (err) => err.response.data.message,
                 })
                 .then((resp) => {
                     router.push("/");

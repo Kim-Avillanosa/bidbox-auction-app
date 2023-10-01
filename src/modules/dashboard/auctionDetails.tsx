@@ -23,7 +23,6 @@ import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
-import toast from "react-hot-toast";
 import DashboardOptions from "./dashboardOptions";
 import DashboardTable from "./dashboardTable";
 import { useRouter } from "next/router";

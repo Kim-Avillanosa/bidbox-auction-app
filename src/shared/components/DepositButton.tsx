@@ -19,6 +19,11 @@ const DepositButton = () => {
         revalidateOption
     );
 
+    function roundToDecimalPlaces(number: number, decimalPlaces: number): number {
+        const factor = Math.pow(10, decimalPlaces);
+        return Math.round(number * factor) / factor;
+    }
+
     return (
         <>
             <Button
@@ -31,7 +36,8 @@ const DepositButton = () => {
                     });
                 }}
             >
-                Balance 💸 | <strong>${data?.balance}</strong>
+                Balance 💸 |{" "}
+                <strong>${roundToDecimalPlaces(data?.balance ?? 0, 2)}</strong>
             </Button>
         </>
     );

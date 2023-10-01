@@ -21,8 +21,8 @@ const MakeBidForm: React.FC<MakeBidFormProps> = ({ bidId }) => {
     const validationSchema = Yup.object({
         amount: Yup.number()
             .required("Amount is required")
-            .positive("Amount must be a positive number")
-            .integer("Amount must be an integer"),
+            .positive("Amount must be positive")
+            .typeError("Invalid amount"),
     });
 
     const onSubmit = (values: Models.BidOffer) => {

@@ -19,6 +19,7 @@ const DepositDialog: React.FC = () => {
     const validationSchema = Yup.object({
         amount: Yup.number()
             .required("Amount is required")
+
             .positive("Amount must be positive")
             .typeError("Invalid amount"),
     });

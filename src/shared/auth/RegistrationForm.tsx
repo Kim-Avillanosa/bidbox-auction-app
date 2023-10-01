@@ -41,9 +41,6 @@ const RegistrationForm = () => {
                     success: `Account successfully created`,
                     loading: "Please wait",
                     error: (err) => err.response.data.message,
-                })
-                .then((resp) => {
-                    router.push("/");
                 });
         },
     });

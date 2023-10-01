@@ -50,6 +50,9 @@ const RegistrationForm = () => {
 
     return (
         <div className="container mt-5  w-50">
+            <h1 className="text-center">
+                <strong style={{ fontSize: 60 }}>BidBox 📦</strong>
+            </h1>
             <h1>
                 <strong>Register</strong>
             </h1>

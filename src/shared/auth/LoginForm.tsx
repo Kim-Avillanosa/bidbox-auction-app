@@ -58,6 +58,9 @@ const LoginForm = () => {
 
     return (
         <Container className="mt-5 w-50">
+            <h1 className="text-center">
+                <strong style={{ fontSize: 60 }}>BidBox 📦</strong>
+            </h1>
             <h1>
                 <strong>Login</strong>
             </h1>

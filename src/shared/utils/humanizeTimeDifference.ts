@@ -32,10 +32,6 @@ function humanizeTimeDifference(targetDate: Date | string): string {
     timeParts.push(`${seconds} second${seconds === 1 ? "" : "s"}`);
   }
 
-  if (timeParts.length === 0) {
-    return "Just now";
-  }
-
   return timeParts.join(", ");
 }
 

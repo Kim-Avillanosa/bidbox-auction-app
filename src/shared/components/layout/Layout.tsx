@@ -1,13 +1,15 @@
 import { Toaster } from "react-hot-toast";
+import { ReactNode } from "react";
+
 interface LayoutProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 /// Place your layout definitions here
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="bottom-center" reverseOrder={false} />
             {children}
         </>
     );

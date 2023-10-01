@@ -1,6 +1,9 @@
+import useAuthStore from "@/shared/store/useAuthStore";
 import axios from "axios";
 
 const useAxiosClient = () => {
+  const { token } = useAuthStore();
+
   const client = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API,
   });
@@ -9,9 +12,7 @@ const useAxiosClient = () => {
   client.interceptors.request.use(
     (config) => {
       // You can set custom headers here
-      config.headers["Authorization"] = `Bearer ${localStorage.getItem(
-        "token"
-      )}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
       return config;
     },
     (error) => {
@@ -26,8 +27,6 @@ const useAxiosClient = () => {
       return response;
     },
     (error) => {
-      // Handle errors here, for example, you can show a notification or log the error
-      // toast.error(JSON.stringify(error));
       return Promise.reject(error);
     }
   );

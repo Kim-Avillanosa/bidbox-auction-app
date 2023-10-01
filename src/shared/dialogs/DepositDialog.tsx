@@ -29,17 +29,17 @@ const DepositDialog: React.FC = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            formik.setSubmitting(true);
+
             toast
                 .promise(deposit(values.amount), {
-                    success: `
-                    Fantastic! 🎉 Your deposit has been successfully processed. Your funds are now securely stored in your wallet, ready for your convenience. `,
+                    success: `Fantastic! 🎉 Your deposit has been successfully processed. Your funds are now securely stored in your wallet, ready for your convenience. `,
                     loading: "Please wait",
                     error: "Deposit failed",
                 })
                 .then((resp) => {
-                    if (resp.status === 200) {
-                        dismiss();
-                    }
+                    formik.setSubmitting(false);
+                    dismiss();
                 });
         },
     });
@@ -63,7 +63,7 @@ const DepositDialog: React.FC = () => {
             </FormGroup>
 
             <div className="mt-3">
-                <Button className="w-100" type="submit">
+                <Button disabled={formik.isSubmitting} className="w-100" type="submit">
                     Deposit
                 </Button>
             </div>

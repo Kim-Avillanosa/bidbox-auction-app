@@ -6,11 +6,8 @@ import { Page } from "..";
 const ModalProvider: React.FC = () => {
   const { properties, isOpen, dismiss } = useModalStore();
 
-
-  if (!properties) return <>Wait</>
-
   return (
-    <Modal show={isOpen} onHide={dismiss}>
+    <Modal backdrop="static" show={isOpen} onHide={dismiss}>
       <Modal.Header closeButton>
         <Modal.Title>{properties?.title}</Modal.Title>
       </Modal.Header>

@@ -1,26 +1,21 @@
 import useAuthStore from "@/shared/store/useAuthStore";
 import Link from "next/link";
-import React, { useState } from "react";
-import { Button, NavDropdown, Navbar, Nav, Container } from "react-bootstrap";
+import React from "react";
+import { Button, Navbar, Nav, Container } from "react-bootstrap";
 import DepositButton from "../DepositButton";
 
 const AppBar = () => {
     const { dismiss, currentAccount } = useAuthStore();
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" >
             <Container>
-                <Navbar.Brand href="#home">Bid Box</Navbar.Brand>
+                <Navbar.Brand>
+                    <strong>BidBox</strong> 📦
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Link className="nav-link" href={"/app"}>
-                            Auction
-                        </Link>
-                        <Link className="nav-link" href={"/app"}>
-                            My Items
-                        </Link>
-                    </Nav>
+                    <Nav className="me-auto" />
                     <Nav className="justify-content-end">
                         <Nav.Item>
                             <DepositButton />

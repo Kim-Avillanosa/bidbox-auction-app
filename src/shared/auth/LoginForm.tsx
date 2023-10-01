@@ -1,7 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Form, FormGroup, FormLabel, FormControl, Button } from "react-bootstrap";
+import {
+    Form,
+    FormGroup,
+    FormLabel,
+    Container,
+    FormControl,
+    Button,
+} from "react-bootstrap";
 import Link from "next/link";
 import useAuth from "@/services/useAuth";
 import toast from "react-hot-toast";
@@ -37,21 +44,23 @@ const LoginForm = () => {
                     if (resp.status === 200) {
                         const result: Models.JwtResponse = resp.data;
                         const data: Models.TokenData = jwt_decode(result.access_token);
-                        setAccount({
-                            userName: data.username,
-                            id: data.sub,
-                        });
+                        setAccount(
+                            {
+                                userName: data.username,
+                                id: data.sub,
+                            },
+                            result.access_token
+                        );
                     }
                 });
         },
     });
 
     return (
-        <div className="container mt-5 w-50">
+        <Container className="mt-5 w-50">
             <h1>
                 <strong>Login</strong>
             </h1>
-
             <Form onSubmit={formik.handleSubmit}>
                 <FormGroup>
                     <FormLabel htmlFor="email">Email</FormLabel>
@@ -79,7 +88,9 @@ const LoginForm = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
-                        isInvalid={formik.touched.password && Boolean(formik.errors.password)}
+                        isInvalid={
+                            formik.touched.password && Boolean(formik.errors.password)
+                        }
                     />
                     {formik.touched.password && (
                         <div className="text-danger">{formik.errors.password}</div>
@@ -99,7 +110,7 @@ const LoginForm = () => {
                     </Link>
                 </div>
             </Form>
-        </div>
+        </Container>
     );
 };
 

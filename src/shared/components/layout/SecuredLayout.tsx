@@ -1,11 +1,13 @@
 import useAuthStore from "@/shared/store/useAuthStore";
 import AppBar from "./AppBar";
+import { ReactNode } from "react";
 
 import { Container } from "react-bootstrap";
 import ModalProvider from "./ModalProvider";
+import { Toaster } from "react-hot-toast";
 
 interface SecuredLayoutProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 /// Place your layout definitions here
@@ -16,6 +18,7 @@ const SecuredLayout: React.FC<SecuredLayoutProps> = ({ children }) => {
 
     return (
         <>
+            <Toaster position="top-center" reverseOrder={false} />
             <AppBar />
             <Container className="mt-3">{children}</Container>
             <ModalProvider />

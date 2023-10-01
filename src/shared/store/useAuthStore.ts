@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthStoreProps {
-  setAccount: (user: Models.User) => void;
+  token: string;
+  setAccount: (user: Models.User, token: string) => void;
   dismiss: () => void;
   currentAccount?: Models.User;
 }
@@ -10,8 +11,9 @@ interface AuthStoreProps {
 const useAuthStore = create<AuthStoreProps>()(
   persist(
     (set, get) => ({
-      setAccount: (user) => {
-        set({ currentAccount: user });
+      token: "",
+      setAccount: (user, token) => {
+        set({ currentAccount: user, token: token });
       },
       dismiss: () => {
         set({ currentAccount: undefined });

@@ -9,10 +9,6 @@ function humanizeTimeDifference(targetDate: Date | string): string {
 
   const timeDifference = targetDateTime.getTime() - currentDate.getTime();
 
-  if (timeDifference < 0) {
-    return "In the past";
-  }
-
   const totalSeconds = Math.floor(timeDifference / 1000);
   const seconds = totalSeconds % 60;
   const totalMinutes = Math.floor(totalSeconds / 60);

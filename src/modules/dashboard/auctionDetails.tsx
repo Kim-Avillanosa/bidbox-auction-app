@@ -31,6 +31,8 @@ import Link from "next/link";
 const AuctionDetails: React.FC = () => {
     const { openModal } = useModalStore();
 
+    const { currentAccount } = useAuthStore();
+
     const router = useRouter();
     const { id } = router.query;
     const { fetcher } = useAxiosClient();
@@ -88,7 +90,7 @@ const AuctionDetails: React.FC = () => {
             <div>
                 <div className="d-flex justify-content-between">
                     <div></div>
-                    <Button
+                    <Button hidden={currentAccount?.userName == currentAuction?.auction_created_by}
                         onClick={() => {
                             openModal({
                                 title: "Place my bid",

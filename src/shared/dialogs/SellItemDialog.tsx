@@ -1,15 +1,22 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import {
+    Container,
+    Row,
+    Col,
+    Button,
+    Form,
+    FormControl,
+    Badge,
+} from "react-bootstrap";
 import toast from "react-hot-toast";
 import useAuction from "@/services/useAuction";
 import useModalStore from "../store/useModal";
 import * as Yup from "yup";
+import moment from "moment-timezone";
 
 const today = new Date();
-const defaultExpirationDate = new Date(
-    today.getTime() + 7 * 24 * 60 * 60 * 1000
-); // Add 7 days in milliseconds
+const options = { hour: "numeric", hour12: true };
 
 const expirationOptions = [
     { label: "3 mins", value: 3 }, // 3 minutes in minutes
@@ -62,9 +69,13 @@ const SellItemDialog: React.FC = () => {
         onSubmit,
     });
 
+    const futureDatetime = new Date(
+        today.getTime() + formik.values.duration * 60 * 1000
+    );
+
     return (
         <Form onSubmit={formik.handleSubmit}>
-            <Form.Group controlId="itemName">
+            <Form.Group className="mt-3" controlId="itemName">
                 <Form.Label>Item Name</Form.Label>
                 <Form.Control
                     type="text"
@@ -78,7 +89,7 @@ const SellItemDialog: React.FC = () => {
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="startAmount">
+            <Form.Group className="mt-3" controlId="startAmount">
                 <Form.Label>Start Amount</Form.Label>
                 <Form.Control
                     type="number"
@@ -92,8 +103,11 @@ const SellItemDialog: React.FC = () => {
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="duration">
-                <Form.Label>Expiration Duration</Form.Label>
+            <Form.Group className="mt-3" controlId="duration">
+                <Form.Label>Duration</Form.Label>
+                <Form.Text >
+                    <Badge bg="secondary" className="m-1">{moment(futureDatetime).format("DD-MM-yyyy hh:mm:ss A")}</Badge>
+                </Form.Text>
                 <Form.Control
                     as="select"
                     name="duration"
@@ -107,9 +121,11 @@ const SellItemDialog: React.FC = () => {
                         </option>
                     ))}
                 </Form.Control>
+
                 <Form.Control.Feedback type="invalid">
                     {formik.errors.duration}
                 </Form.Control.Feedback>
+                <div></div>
             </Form.Group>
             <Button className="mt-3 w-100" variant="primary" type="submit">
                 Submit

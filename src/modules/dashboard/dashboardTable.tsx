@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 
 import { DateTime } from "luxon";
+import moment from "moment-timezone";
 
 type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 
@@ -55,7 +56,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                     <th>Name</th>
                     <th>Start Price</th>
                     <th>Current Price</th>
-                    <th>Duration</th>
+                    <th>Expires in</th>
                     <th>Status</th>
                     <th>Options</th>
                 </tr>
@@ -74,7 +75,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                 </span>
                             </td>
                             <td>
-                                {item.auction_expiration.toString()}
+                                {moment(item.auction_expiration).format("hh:mm:ss A")}
                                 {/* {Intl.DateTimeFormat().resolvedOptions().timeZone} */}
                             </td>
                             <td>

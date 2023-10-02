@@ -7,6 +7,7 @@ import ModalProvider from "./ModalProvider";
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./ErrorBoundary";
 import AuthVerify from "@/shared/auth/AuthVerify";
+import OnLoadAnimator from "./OnLoadAnimator";
 
 interface SecuredLayoutProps {
     children: ReactNode;
@@ -22,7 +23,9 @@ const SecuredLayout: React.FC<SecuredLayoutProps> = ({ children }) => {
         <>
             <AppBar />
             <Container className="mt-3">
-                <ErrorBoundary>{children}</ErrorBoundary>
+                <ErrorBoundary>
+                    <OnLoadAnimator>{children}</OnLoadAnimator>
+                </ErrorBoundary>
             </Container>
             <AuthVerify />
             <ModalProvider />

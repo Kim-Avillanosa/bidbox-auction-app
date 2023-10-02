@@ -33,7 +33,7 @@ const useModalStore = create<ModalStoreProps>()(
     }),
     {
       name: "modal",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

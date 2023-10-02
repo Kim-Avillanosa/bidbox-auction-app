@@ -21,7 +21,7 @@ const useAuthStore = create<AuthStoreProps>()(
     }),
     {
       name: "account",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

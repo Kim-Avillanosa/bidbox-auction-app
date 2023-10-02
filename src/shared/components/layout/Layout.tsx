@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import { ReactNode } from "react";
+import ErrorBoundary from "./ErrorBoundary";
 
 interface LayoutProps {
     children: ReactNode;
@@ -7,12 +8,7 @@ interface LayoutProps {
 
 /// Place your layout definitions here
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-    return (
-        <>
-            <Toaster position="bottom-right" reverseOrder={false} />
-            {children}
-        </>
-    );
+    return <ErrorBoundary>{children}</ErrorBoundary>;
 };
 
 export default Layout;

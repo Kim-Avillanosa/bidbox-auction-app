@@ -5,6 +5,8 @@ import { ReactNode } from "react";
 import { Container } from "react-bootstrap";
 import ModalProvider from "./ModalProvider";
 import { Toaster } from "react-hot-toast";
+import ErrorBoundary from "./ErrorBoundary";
+import AuthVerify from "@/shared/auth/AuthVerify";
 
 interface SecuredLayoutProps {
     children: ReactNode;
@@ -18,9 +20,11 @@ const SecuredLayout: React.FC<SecuredLayoutProps> = ({ children }) => {
 
     return (
         <>
-            <Toaster position="bottom-right" reverseOrder={false} />
             <AppBar />
-            <Container className="mt-3">{children}</Container>
+            <Container className="mt-3">
+                <ErrorBoundary>{children}</ErrorBoundary>
+            </Container>
+            <AuthVerify />
             <ModalProvider />
         </>
     );

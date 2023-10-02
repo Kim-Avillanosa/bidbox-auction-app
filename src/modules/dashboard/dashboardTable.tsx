@@ -75,7 +75,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                 </span>
                             </td>
                             <td>
-                                {moment(item.auction_expiration).format("hh:mm:ss A")}
+                                {moment(item.auction_expiration).format("DD-MM-yyyy hh:mm:ss A")}
                                 {/* {Intl.DateTimeFormat().resolvedOptions().timeZone} */}
                             </td>
                             <td>

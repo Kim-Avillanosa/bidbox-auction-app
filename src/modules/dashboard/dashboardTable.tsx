@@ -9,10 +9,7 @@ import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
 import { useState } from "react";
-import {
-    convertToDesiredTimezone,
-    calculateDurationRemaining,
-} from "@/shared/utils/humanizeTimeDifference";
+
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
 import useAuction from "@/services/useAuction";
 import toast from "react-hot-toast";
@@ -75,8 +72,10 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                 </span>
                             </td>
                             <td>
-                                {moment(item.auction_expiration).format("DD-MM-yyyy hh:mm:ss A")}
-                                {/* {Intl.DateTimeFormat().resolvedOptions().timeZone} */}
+                                {/* {item.auction_expiration.toString()} */}
+                                {moment(item.auction_expiration).format(
+                                    "DD-MM-yyyy hh:mm:ss A"
+                                )}
                             </td>
                             <td>
                                 <Badge bg="dark">{item.auction_status}</Badge>

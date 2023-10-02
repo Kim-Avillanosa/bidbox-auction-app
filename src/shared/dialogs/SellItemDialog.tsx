@@ -14,9 +14,7 @@ import useAuction from "@/services/useAuction";
 import useModalStore from "../store/useModal";
 import * as Yup from "yup";
 import moment from "moment-timezone";
-
-const today = new Date();
-const options = { hour: "numeric", hour12: true };
+import { futureDatetime } from "../utils/futureDatetime";
 
 const expirationOptions = [
     { label: "3 mins", value: 3 }, // 3 minutes in minutes
@@ -69,9 +67,7 @@ const SellItemDialog: React.FC = () => {
         onSubmit,
     });
 
-    const futureDatetime = new Date(
-        today.getTime() + formik.values.duration * 60 * 1000
-    );
+
 
     return (
         <Form onSubmit={formik.handleSubmit}>
@@ -105,8 +101,10 @@ const SellItemDialog: React.FC = () => {
 
             <Form.Group className="mt-3" controlId="duration">
                 <Form.Label>Duration</Form.Label>
-                <Form.Text >
-                    <Badge bg="secondary" className="m-1">{moment(futureDatetime).format("DD-MM-yyyy hh:mm:ss A")}</Badge>
+                <Form.Text>
+                    <Badge bg="secondary" className="m-1">
+                        {moment(futureDatetime(formik.values.duration)).format("DD-MM-yyyy hh:mm:ss A")}
+                    </Badge>
                 </Form.Text>
                 <Form.Control
                     as="select"

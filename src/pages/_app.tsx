@@ -5,6 +5,10 @@ import useSWR, { SWRConfig } from "swr";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 
+import { NextIntlClientProvider } from "next-intl";
+
+const timeZone = "Asia/Singapore";
+
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
 
@@ -21,7 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
             fetch(resource, init).then((res) => res.json()),
         }}
       >
-        <Component {...pageProps} />
+        <NextIntlClientProvider timeZone={timeZone}>
+          <Component {...pageProps} />
+        </NextIntlClientProvider>
       </SWRConfig>
     );
   };

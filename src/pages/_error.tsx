@@ -1,5 +1,6 @@
-import React from 'react';
-import { NextPageContext } from 'next';
+import React from "react";
+import { NextPageContext } from "next";
+import { Layout, Page } from "@/shared/components";
 
 interface ErrorPageProps {
     statusCode?: number;
@@ -13,17 +14,19 @@ class ErrorPage extends React.Component<ErrorPageProps> {
 
     render() {
         const { statusCode } = this.props;
-        let message = 'An error occurred';
+        let message = "An error occurred";
 
         if (statusCode === 404) {
-            message = 'Page not found';
+            message = "Page not found";
         }
 
         return (
-            <div>
-                <h1>{message}</h1>
-                <p>{statusCode ? `Status Code: ${statusCode}` : ''}</p>
-            </div>
+            <Page title="Error">
+                <Layout>
+                    <p>{message}</p>
+                    <p>{statusCode ? `Status Code: ${statusCode}` : ""}</p>
+                </Layout>
+            </Page>
         );
     }
 }

@@ -1,12 +1,17 @@
 import { NextPageContext } from "next";
 import { Layout, Page } from "@/shared/components";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { Button } from "react-bootstrap";
 
 interface ErrorPageProps {
     statusCode?: number;
 }
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ statusCode }) => {
-    let message = "An error occurred";
+    const router = useRouter();
+
+    let message = "An error occurred please reload the page";
 
     if (statusCode === 404) {
         message = "Page not found";
@@ -15,7 +20,9 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ statusCode }) => {
     return (
         <Page title="Error">
             <Layout>
-                <p>{message}</p>
+                <p>
+                    {message} <Button size='sm'>Reload</Button>
+                </p>
                 <p>{statusCode ? `Status Code: ${statusCode}` : ""}</p>
             </Layout>
         </Page>

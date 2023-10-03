@@ -20,8 +20,8 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ statusCode }) => {
     return (
         <Page title="Error">
             <Layout>
-                <p>
-                    {message} <Button size='sm'>Reload</Button>
+                <p className="m-5">
+                    {message} <Button variant="link" size='sm' onClick={() => { router.reload() }}>Reload</Button>
                 </p>
                 <p>{statusCode ? `Status Code: ${statusCode}` : ""}</p>
             </Layout>

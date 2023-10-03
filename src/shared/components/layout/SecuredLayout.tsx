@@ -4,10 +4,9 @@ import { ReactNode } from "react";
 
 import { Container } from "react-bootstrap";
 import ModalProvider from "./ModalProvider";
-import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./ErrorBoundary";
 import AuthVerify from "@/shared/auth/AuthVerify";
-import OnLoadAnimator from "./OnLoadAnimator";
+import OnLoadAnimator from "@/shared/components/layout/OnLoadAnimator"
 
 interface SecuredLayoutProps {
     children: ReactNode;

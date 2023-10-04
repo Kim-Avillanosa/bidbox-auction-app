@@ -1,36 +1,31 @@
-export function humanizeDateTime(dateTime: Date): string {
+export function humanizeTimeLeft(dateTime: Date): string {
+  // Check if dateTime is a valid Date object
+  if (!(dateTime instanceof Date) || isNaN(dateTime.getTime())) {
+    return "Invalid date";
+  }
+
   const now = new Date();
-  const timeDifference = now.getTime() - dateTime.getTime();
+  const timeDifference = dateTime.getTime() - now.getTime();
   const seconds = Math.floor(timeDifference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
 
-  if (days > 0) {
-    if (days === 1) {
-      return "1 day ago";
-    } else {
-      return `${days} days ago`;
-    }
-  } else if (hours > 0) {
-    if (hours === 1) {
-      return "1 hour ago";
-    } else {
-      return `${hours} hours ago`;
-    }
-  } else if (minutes > 0) {
-    if (minutes === 1) {
-      return "1 minute ago";
-    } else {
-      return `${minutes} minutes ago`;
-    }
-  } else if (seconds >= 0) {
-    if (seconds < 10) {
-      return "just now";
-    } else {
-      return `${seconds} seconds ago`;
-    }
+  if (days > 1) {
+    return `${days} days`;
+  } else if (days === 1) {
+    return "1 day";
+  } else if (hours > 1) {
+    return `${hours} hours`;
+  } else if (hours === 1) {
+    return "1 hour";
+  } else if (minutes > 1) {
+    return `${minutes} minutes`;
+  } else if (minutes === 1) {
+    return "1 minute";
+  } else if (seconds > 10) {
+    return `${seconds} seconds`;
   } else {
-    return "Invalid date";
+    return "Less than 10 seconds";
   }
 }

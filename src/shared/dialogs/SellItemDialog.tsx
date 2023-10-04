@@ -15,6 +15,7 @@ import useModalStore from "../store/useModal";
 import * as Yup from "yup";
 import moment from "moment-timezone";
 import { futureDatetime } from "../utils/futureDatetime";
+import { humanizeTimeRemaining } from "../utils/humanizeDateTime";
 
 const expirationOptions = [
     { label: "1 min", value: 1 * 60 * 1000 }, // 1 minute in milliseconds
@@ -67,8 +68,6 @@ const SellItemDialog: React.FC = () => {
         onSubmit,
     });
 
-
-
     return (
         <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mt-3" controlId="itemName">
@@ -103,7 +102,9 @@ const SellItemDialog: React.FC = () => {
                 <Form.Label>Duration</Form.Label>
                 <Form.Text>
                     <Badge bg="secondary" className="m-1">
-                        {moment(futureDatetime(formik.values.duration)).format("DD-MM-yyyy hh:mm:ss A")}
+                        {humanizeTimeRemaining(
+                            moment(futureDatetime(formik.values.duration)).toDate()
+                        )}
                     </Badge>
                 </Form.Text>
                 <Form.Control

@@ -18,7 +18,8 @@ import Link from "next/link";
 import { DateTime } from "luxon";
 import moment from "moment-timezone";
 import OnLoadAnimator from "@/shared/components/layout/OnLoadAnimator";
-import { humanizeTimeLeft } from "@/shared/utils/humanizeDateTime";
+import { humanizeTimeRemaining } from "@/shared/utils/humanizeDateTime";
+
 
 type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 
@@ -76,7 +77,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                         </strong>
                                     </span>
                                 </td>
-                                <td>{humanizeTimeLeft(item.auction_expiration.toString())}</td>
+                                <td>{humanizeTimeRemaining(item.auction_expiration.toString())}</td>
                                 <td>
                                     <Badge bg="dark">{item.auction_status}</Badge>
                                 </td>

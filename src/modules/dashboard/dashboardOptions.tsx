@@ -21,18 +21,8 @@ interface DashboardOptionsProps {
 const DashboardOptions: React.FC<DashboardOptionsProps> = ({ setStatus }) => {
     const [currentStatus, setlocalStatus] = useState<OfferStatuses>("ONGOING");
 
-    const { currentAccount } = useAuthStore();
-
     const { openModal } = useModalStore();
 
-    if (!currentAccount)
-        return (
-            <Page title="Welcome to bid box">
-                <Layout>
-                    <LoginForm />
-                </Layout>
-            </Page>
-        );
 
     return (
         <div className="d-flex justify-content-between">

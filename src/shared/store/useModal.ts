@@ -14,28 +14,20 @@ interface ModalStoreProps {
   openModal: (options: AppModalProps) => void;
 }
 
-const useModalStore = create<ModalStoreProps>()(
-  persist(
-    (set, get) => ({
+const useModalStore = create<ModalStoreProps>()((set, get) => ({
+  isOpen: false,
+  openModal: (options: AppModalProps) => {
+    set({
+      properties: options,
+      isOpen: true,
+    });
+  },
+  dismiss: () => {
+    set({
+      properties: undefined,
       isOpen: false,
-      openModal: (options: AppModalProps) => {
-        set({
-          properties: options,
-          isOpen: true,
-        });
-      },
-      dismiss: () => {
-        set({
-          properties: undefined,
-          isOpen: false,
-        });
-      },
-    }),
-    {
-      name: "modal",
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
+    });
+  },
+}));
 
 export default useModalStore;

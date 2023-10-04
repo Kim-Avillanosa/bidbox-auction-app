@@ -6,7 +6,7 @@ import useAuthStore from "../store/useAuthStore";
 import { useUrl } from "@/services/useUrl";
 import { motion } from "framer-motion";
 
-const DepositButton = () => {
+const DepositButton: React.FC = () => {
     const { openModal } = useModalStore();
     const { currentAccount } = useAuthStore();
 
@@ -25,21 +25,19 @@ const DepositButton = () => {
     }
 
     return (
-        <>
-            <Button
-                className="m-1"
-                variant="light"
-                onClick={() => {
-                    openModal({
-                        title: "Make a deposit 💸",
-                        content: <DepositDialog />,
-                    });
-                }}
-            >
-                Balance 💸 |{" "}
-                <strong>${roundToDecimalPlaces(data?.balance ?? 0, 2)}</strong>
-            </Button>
-        </>
+        <Button
+            className="m-1"
+            variant="light"
+            onClick={() => {
+                openModal({
+                    title: "Make a deposit 💸",
+                    content: <DepositDialog />,
+                });
+            }}
+        >
+            Balance 💸 |{" "}
+            <strong>${roundToDecimalPlaces(data?.balance ?? 0, 2)}</strong>
+        </Button>
     );
 };
 

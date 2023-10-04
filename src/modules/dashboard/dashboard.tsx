@@ -18,17 +18,6 @@ type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 const Dashboard: React.FC = () => {
     const [currentStatus, setStatus] = useState<OfferStatuses>("ONGOING");
 
-    const { currentAccount } = useAuthStore();
-
-    if (!currentAccount)
-        return (
-            <Page title="Welcome to bid box">
-                <Layout>
-                    <LoginForm />
-                </Layout>
-            </Page>
-        );
-
     return (
         <Page title="BidBox">
             <SecuredLayout>

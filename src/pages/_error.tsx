@@ -1,7 +1,6 @@
 import { NextPageContext } from "next";
 import { Layout, Page } from "@/shared/components";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { Button } from "react-bootstrap";
 
 interface ErrorPageProps {
@@ -27,7 +26,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ statusCode }) => {
                         size="sm"
                         onClick={() => {
                             localStorage.clear();
-
                             router.reload();
                         }}
                     >

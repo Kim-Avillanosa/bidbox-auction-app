@@ -1,51 +1,40 @@
-export function convertGMTtoGMT8(gmt0Date: Date): Date {
-  // Get the current date and time in GMT+0000 (UTC)
-  const gmt0Timestamp = gmt0Date.getTime();
+import moment from "moment";
 
-  // Calculate the new timestamp with GMT+0800 (UTC+8) offset
-  const gmt8Timestamp = gmt0Timestamp + 8 * 60 * 60 * 1000; // 8 hours in milliseconds
+export function humanizeTimeLeft(targetDate: Date): string {
+  const now = moment();
+  const endDate = moment(targetDate);
 
-  // Create a new Date object with the GMT+0800 timestamp
-  const gmt8Date = new Date(gmt8Timestamp);
-
-  return gmt8Date;
-}
-
-export const passMsToTimezone = (millisecondsToAdd: number): string => {
-  if (isNaN(millisecondsToAdd)) {
-    return "Invalid";
+  if (now.isAfter(endDate)) {
+    return "Time has already passed.";
   }
 
-  const currentDate = new Date();
-  let timezoneDate = convertGMTtoGMT8(currentDate);
+  const duration = moment.duration(endDate.diff(now));
+  const days = duration.days();
+  const hours = duration.hours();
+  const minutes = duration.minutes();
 
-  // Add the time to the current date
-  timezoneDate = new Date(timezoneDate.getTime() + millisecondsToAdd);
-
-  return timezoneDate.toString();
-};
-
-export const humanizeTimeRemaining = (targetDate: Date): string => {
-  if (!(targetDate instanceof Date) || isNaN(targetDate.getTime())) {
-    return "Invalid date input. Please provide a valid Date object.";
-  }
-
-  const currentTime = new Date();
-  const timeRemaining = targetDate.getTime() - currentTime.getTime();
-
-  // Convert time remaining to a humanized format
-  const seconds = Math.floor(timeRemaining / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
+  const timeComponents: string[] = [];
 
   if (days > 0) {
-    return `${days} day${days > 1 ? "s" : ""} remaining`;
-  } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? "s" : ""} remaining`;
-  } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? "s" : ""} remaining`;
-  } else {
-    return `${seconds} second${seconds > 1 ? "s" : ""} remaining`;
+    timeComponents.push(`${days} day${days > 1 ? "s" : ""}`);
   }
-};
+
+  if (hours > 0) {
+    timeComponents.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+  }
+
+  if (minutes > 0) {
+    timeComponents.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
+  }
+
+  // Handle the case when there are no days but some hours and minutes
+  if (days === 0 && timeComponents.length > 1) {
+    return (
+      timeComponents.slice(0, -1).join(", ") +
+      " and " +
+      timeComponents.slice(-1)
+    );
+  }
+
+  return timeComponents.join(", ");
+}

@@ -5,7 +5,7 @@ import { Button, Navbar, Nav, Container } from "react-bootstrap";
 import DepositButton from "../DepositButton";
 import { useRouter } from "next/router";
 
-const AppBar = () => {
+const AppBar: React.FC = () => {
     const { dismiss, currentAccount } = useAuthStore();
 
     const router = useRouter();

@@ -15,7 +15,7 @@ const AuthVerify: React.FC<AuthVerifyProps> = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("account") || "");
+        const user = JSON.parse(localStorage.getItem("account") || "{}");
 
         if (user) {
             const decodedJwt = parseJwt(user.state.token);

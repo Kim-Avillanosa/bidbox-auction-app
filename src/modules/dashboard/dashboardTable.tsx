@@ -17,9 +17,7 @@ import Link from "next/link";
 
 import { DateTime } from "luxon";
 import moment from "moment-timezone";
-import OnLoadAnimator from "@/shared/components/layout/OnLoadAnimator";
-import { humanizeTimeRemaining } from "@/shared/utils/humanizeDateTime";
-
+import { humanizeTimeLeft } from "@/shared/utils/humanizeDateTime";
 
 type OfferStatuses = "PENDING" | "ONGOING" | "COMPLETED";
 
@@ -43,6 +41,8 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
         }
     );
 
+
+
     const { currentAccount } = useAuthStore();
 
     const { openModal } = useModalStore();
@@ -50,91 +50,89 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
     if (data != null && data?.length <= 0) return <div>No Items Found</div>;
 
     return (
-        <OnLoadAnimator>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Start Price</th>
-                        <th>Current Price</th>
-                        <th>Expires in</th>
-                        <th>Status</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data?.map((item, idx) => {
-                        return (
-                            <tr key={idx}>
-                                <td>{item.auction_itemName}</td>
-                                <td>
-                                    <strong>${item.auction_startPrice}</strong>
-                                </td>
-                                <td>
-                                    <span className="text-success">
-                                        <strong>
-                                            ${item.currentBid ?? item.auction_startPrice}
-                                        </strong>
-                                    </span>
-                                </td>
-                                <td>{humanizeTimeRemaining(item.auction_expiration)}</td>
-                                <td>
-                                    <Badge bg="dark">{item.auction_status}</Badge>
-                                </td>
-                                <td>
-                                    <div
-                                        hidden={
-                                            (currentAccount != null &&
-                                                item.auction_created_by != currentAccount.userName) ||
-                                            item.auction_status !== "PENDING"
-                                        }
+        <Table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Start Price</th>
+                    <th>Current Price</th>
+                    <th>Expires in</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data?.map((item, idx) => {
+                    return (
+                        <tr key={idx}>
+                            <td>{item.auction_itemName}</td>
+                            <td>
+                                <strong>${item.auction_startPrice}</strong>
+                            </td>
+                            <td>
+                                <span className="text-success">
+                                    <strong>${item.currentBid ?? item.auction_startPrice}</strong>
+                                </span>
+                            </td>
+                            <td>{humanizeTimeLeft(item.auction_expiration)}</td>
+
+                            <td>
+                                <Badge bg="dark">{item.auction_status}</Badge>
+                            </td>
+
+                            <td>
+                                <div
+                                    hidden={
+                                        (currentAccount != null &&
+                                            item.auction_created_by != currentAccount.userName) ||
+                                        item.auction_status !== "PENDING"
+                                    }
+                                >
+                                    <Button
+                                        onClick={() => {
+                                            toast.promise(startOffer(item.auction_id), {
+                                                success: `Your bid has been placed`,
+                                                loading: "Please wait",
+                                                error: (err) => err.response.data.message,
+                                            });
+                                        }}
+                                        variant="light"
+                                        className="m-1"
+                                        size="sm"
                                     >
-                                        <Button
-                                            onClick={() => {
-                                                toast.promise(startOffer(item.auction_id), {
-                                                    success: `Your bid has been placed`,
-                                                    loading: "Please wait",
-                                                    error: (err) => err.response.data.message,
-                                                });
-                                            }}
-                                            variant="light"
-                                            className="m-1"
-                                            size="sm"
-                                        >
-                                            ⚡ Start
+                                        ⚡ Start
+                                    </Button>
+                                </div>
+                                <div hidden={item.auction_status !== "ONGOING"}>
+                                    <Link href={`/dashboard/${item.auction_id}`}>
+                                        <Button variant="light" className="m-1" size="sm">
+                                            📄 Details
                                         </Button>
-                                    </div>
-                                    <div hidden={item.auction_status !== "ONGOING"}>
-                                        <Link href={`/dashboard/${item.auction_id}`}>
-                                            <Button variant="light" className="m-1" size="sm">
-                                                📄 Details
-                                            </Button>
-                                        </Link>
-                                        <Button
-                                            hidden={
-                                                currentAccount != null &&
-                                                item.auction_created_by == currentAccount.userName
-                                            }
-                                            onClick={() => {
-                                                openModal({
-                                                    title: "Place my bid",
-                                                    content: <MakeBidForm bidId={item.auction_id} />,
-                                                });
-                                            }}
-                                            variant="success"
-                                            className="m-1"
-                                            size="sm"
-                                        >
-                                            🏷️ Bid
-                                        </Button>
-                                    </div>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </Table>
-        </OnLoadAnimator>
+                                    </Link>
+                                    <Button
+                                        hidden={
+                                            currentAccount != null &&
+                                            item.auction_created_by == currentAccount.userName
+                                        }
+                                        onClick={() => {
+                                            openModal({
+                                                title: "Place my bid",
+                                                content: <MakeBidForm bidId={item.auction_id} />,
+                                            });
+                                        }}
+                                        variant="success"
+                                        className="m-1"
+                                        size="sm"
+                                    >
+                                        🏷️ Bid
+                                    </Button>
+                                </div>
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </Table>
     );
 };
 

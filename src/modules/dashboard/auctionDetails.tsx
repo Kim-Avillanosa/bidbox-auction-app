@@ -3,28 +3,19 @@ import { Layout, Page, SecuredLayout } from "@/shared/components";
 import LoginForm from "@/shared/auth/LoginForm";
 import useAuthStore from "@/shared/store/useAuthStore";
 import {
-    Badge,
     Button,
     Card,
     CardHeader,
     CardSubtitle,
     CardText,
     CardTitle,
-    Col,
-    Container,
-    Row,
     Table,
 } from "react-bootstrap";
 import useModalStore from "@/shared/store/useModal";
-import SellItemDialog from "@/shared/dialogs/SellItemDialog";
 import { useUrl } from "@/services/useUrl";
 import useSWR from "swr";
 import useAxiosClient from "@/services/useAxiosClient";
-import { useState } from "react";
 import MakeBidForm from "@/shared/dialogs/MakeBidForm";
-import useAuction from "@/services/useAuction";
-import DashboardOptions from "./dashboardOptions";
-import DashboardTable from "./dashboardTable";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -54,7 +45,6 @@ const AuctionDetails: React.FC = () => {
             revalidateIfStale: true,
         }
     );
-
 
     const renderTable = () => {
         if (isLoading) return <div>Please wait</div>;
@@ -90,7 +80,10 @@ const AuctionDetails: React.FC = () => {
             <div>
                 <div className="d-flex justify-content-between">
                     <div></div>
-                    <Button hidden={currentAccount?.userName == currentAuction?.auction_created_by}
+                    <Button
+                        hidden={
+                            currentAccount?.userName == currentAuction?.auction_created_by
+                        }
                         onClick={() => {
                             openModal({
                                 title: "Place my bid",

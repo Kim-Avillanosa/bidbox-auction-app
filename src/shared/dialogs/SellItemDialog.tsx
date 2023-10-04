@@ -17,11 +17,11 @@ import moment from "moment-timezone";
 import { futureDatetime } from "../utils/futureDatetime";
 
 const expirationOptions = [
-    { label: "3 mins", value: 3 }, // 3 minutes in minutes
-    { label: "5 mins", value: 5 }, // 5 minutes in minutes
-    { label: "30 mins", value: 30 }, // 30 minutes in minutes
-    { label: "1 hour", value: 60 }, // 1 hour in minutes
-    { label: "2 hours", value: 120 }, // 2 hours in minutes
+    { label: "1 min", value: 1 * 60 * 1000 }, // 1 minute in milliseconds
+    { label: "1 hour", value: 1 * 60 * 60 * 1000 }, // 1 hour in milliseconds
+    { label: "2 hours", value: 2 * 60 * 60 * 1000 }, // 2 hours in milliseconds
+    { label: "5 hours", value: 5 * 60 * 60 * 1000 }, // 5 hours in milliseconds
+    { label: "10 hours", value: 10 * 60 * 60 * 1000 }, // 10 hours in milliseconds
 ];
 
 const SellItemDialog: React.FC = () => {

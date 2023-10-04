@@ -76,10 +76,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                     </span>
                                 </td>
                                 <td>
-                                    {/* {item.auction_expiration.toString()} */}
-                                    {moment(item.auction_expiration).format(
-                                        "DD-MM-yyyy hh:mm:ss A"
-                                    )}
+                                    {item.auction_expiration.toString()}
                                 </td>
                                 <td>
                                     <Badge bg="dark">{item.auction_status}</Badge>

@@ -17,6 +17,7 @@ import moment from "moment-timezone";
 import { getEndDate, humanizeTimeLeftByDuration } from "../utils/humanizeDateTime";
 
 const expirationOptions = [
+    { label: "Mock", value: 1 * 60 * 100 }, // 1 minute in milliseconds
     { label: "1 min", value: 1 * 60 * 1000 }, // 1 minute in milliseconds
     { label: "1 hour", value: 1 * 60 * 60 * 1000 }, // 1 hour in milliseconds
     { label: "2 hours", value: 2 * 60 * 60 * 1000 }, // 2 hours in milliseconds

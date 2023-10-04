@@ -76,7 +76,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                         </strong>
                                     </span>
                                 </td>
-                                <td>{humanizeTimeLeft(item.auction_expiration)}</td>
+                                <td>{humanizeTimeLeft(item.auction_expiration.toString())}</td>
                                 <td>
                                     <Badge bg="dark">{item.auction_status}</Badge>
                                 </td>

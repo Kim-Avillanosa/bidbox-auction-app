@@ -1,4 +1,6 @@
-export function humanizeTimeLeft(dateTime: Date): string {
+export function humanizeTimeLeft(dateTimeStr: string): string {
+  const dateTime = new Date(dateTimeStr);
+
   // Check if dateTime is a valid Date object
   if (!(dateTime instanceof Date) || isNaN(dateTime.getTime())) {
     return "Invalid date";

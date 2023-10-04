@@ -10,6 +10,7 @@ import ModalProvider from "./ModalProvider";
 import ErrorBoundary from "./ErrorBoundary";
 import AuthVerify from "@/shared/auth/AuthVerify";
 import OnLoadAnimator from "@/shared/components/layout/OnLoadAnimator";
+import LoginForm from "@/shared/auth/LoginForm";
 
 interface SecuredLayoutProps {
     children: ReactNode;
@@ -19,7 +20,7 @@ interface SecuredLayoutProps {
 const SecuredLayout: React.FC<SecuredLayoutProps> = ({ children }) => {
     const { currentAccount } = useAuthStore();
 
-    if (!currentAccount) return "Your are not authenticated, please login";
+    if (!currentAccount) return <LoginForm />;
 
     return (
         <SWRConfig

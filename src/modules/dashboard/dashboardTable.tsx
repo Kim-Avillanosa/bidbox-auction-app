@@ -91,7 +91,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
                                     <Button
                                         onClick={() => {
                                             toast.promise(startOffer(item.auction_id), {
-                                                success: `Your bid has been placed`,
+                                                success: `Your item '${item.auction_itemName}' is now available for auction`,
                                                 loading: "Please wait",
                                                 error: (err) => err.response.data.message,
                                             });

@@ -15,7 +15,7 @@ const useAuction = () => {
   };
 
   const bidOffer = (bidId: number, data: Models.BidOffer) => {
-    return client.post(`/auction/${bidId}/bid`, {
+    return client.patch(`/auction/${bidId}/bid`, {
       amount: data.amount,
     });
   };
@@ -25,7 +25,7 @@ const useAuction = () => {
   };
 
   const startOffer = (bidId: number) => {
-    return client.post(`/auction/${bidId}/start`);
+    return client.patch(`/auction/${bidId}/start`);
   };
 
   return { makeOffer, offers, bidOffer, startOffer, bidList };

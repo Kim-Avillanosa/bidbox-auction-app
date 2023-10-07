@@ -17,11 +17,11 @@ import moment from "moment-timezone";
 import { getEndDate, humanizeTimeLeftByDuration } from "../utils/humanizeDateTime";
 
 const expirationOptions = [
-    { label: "1 min", value: 60000 }, // 1 minute in milliseconds
-    { label: "1 hour", value: 3600000 }, // 1 hour in milliseconds
-    { label: "2 hours", value: 7200000 }, // 2 hours in milliseconds
-    { label: "5 hours", value: 18000000 }, // 5 hours in milliseconds
-    { label: "10 hours", value: 36000000 }, // 10 hours in milliseconds
+    { label: "1 min", value: 90000 }, // 1 minute in milliseconds
+    { label: "1 hour", value: 90000 * 60 }, // 1 hour in milliseconds
+    { label: "2 hours", value: 90000 * 120 }, // 2 hours in milliseconds
+    { label: "5 hours", value: 90000 * 300 }, // 5 hours in milliseconds
+    { label: "10 hours", value: 90000 * 600 }, // 10 hours in milliseconds
 ];
 
 const SellItemDialog: React.FC = () => {

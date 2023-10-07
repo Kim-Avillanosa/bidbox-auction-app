@@ -1,86 +1,55 @@
-import moment from "moment";
+export function convertGMTtoGMT8(gmt0Date: Date): Date {
+  // Get the current date and time in GMT+0000 (UTC)
+  const gmt0Timestamp = gmt0Date.getTime();
 
-export const getEndDate = (milliseconds: number) => {
-  const now = moment();
-  const endDate = moment(now).add(milliseconds, "milliseconds");
+  // Calculate the new timestamp with GMT+0800 (UTC+8) offset
+  const gmt8Timestamp = gmt0Timestamp + 8 * 60 * 60; // 8 hours in milliseconds
 
-  return endDate.format("YYYY-MM-DD hh:mm A").toString();
+  // Create a new Date object with the GMT+0800 timestamp
+  const gmt8Date = new Date(gmt8Timestamp);
+
+  return gmt8Date;
+}
+
+export const passMsToTimezone = (millisecondsToAdd: number): Date => {
+  if (isNaN(millisecondsToAdd)) {
+    throw new Error(
+      "Invalid date input. Please provide a valid number of milliseconds."
+    );
+  }
+
+  const currentDate = new Date();
+  let timezoneDate = convertGMTtoGMT8(currentDate);
+
+  // Add the time to the current date
+  timezoneDate.setMilliseconds(
+    timezoneDate.getMilliseconds() + millisecondsToAdd
+  );
+
+  return timezoneDate;
 };
 
-export function humanizeTimeLeftByDuration(milliseconds: number): string {
-  const now = moment();
-  const endDate = moment(now).add(milliseconds, "milliseconds");
-
-  if (now.isAfter(endDate)) {
-    return "Time has already passed.";
+export const humanizeTimeRemaining = (targetDate: Date): string => {
+  if (!(targetDate instanceof Date) || isNaN(targetDate.getTime())) {
+    throw new Error("Invalid date input. Please provide a valid Date object.");
   }
 
-  const duration = moment.duration(endDate.diff(now));
-  const days = duration.days();
-  const hours = duration.hours();
-  const minutes = duration.minutes();
+  const currentTime = new Date();
+  const timeRemaining = targetDate.getTime() - currentTime.getTime();
 
-  const timeComponents: string[] = [];
+  // Convert time remaining to a humanized format
+  const seconds = Math.floor(timeRemaining / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
   if (days > 0) {
-    timeComponents.push(`${days} day${days > 1 ? "s" : ""}`);
+    return `${days} day${days > 1 ? "s" : ""} remaining`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? "s" : ""} remaining`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? "s" : ""} remaining`;
+  } else {
+    return `${seconds} second${seconds > 1 ? "s" : ""} remaining`;
   }
-
-  if (hours > 0) {
-    timeComponents.push(`${hours} hour${hours > 1 ? "s" : ""}`);
-  }
-
-  if (minutes > 0) {
-    timeComponents.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
-  }
-
-  // Handle the case when there are no days but some hours and minutes
-  if (days === 0 && timeComponents.length > 1) {
-    return (
-      timeComponents.slice(0, -1).join(", ") +
-      " and " +
-      timeComponents.slice(-1)
-    );
-  }
-
-  return endDate.format("YYYY-MM-DD hh:mm A");
-}
-
-export function humanizeTimeLeft(targetDate: Date): string {
-  const now = moment();
-  const endDate = moment(targetDate);
-
-  if (now.isAfter(endDate)) {
-    return "Time has already passed.";
-  }
-
-  const duration = moment.duration(endDate.diff(now));
-  const days = duration.days();
-  const hours = duration.hours();
-  const minutes = duration.minutes();
-
-  const timeComponents: string[] = [];
-
-  if (days > 0) {
-    timeComponents.push(`${days} day${days > 1 ? "s" : ""}`);
-  }
-
-  if (hours > 0) {
-    timeComponents.push(`${hours} hour${hours > 1 ? "s" : ""}`);
-  }
-
-  if (minutes > 0) {
-    timeComponents.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
-  }
-
-  // Handle the case when there are no days but some hours and minutes
-  if (days === 0 && timeComponents.length > 1) {
-    return (
-      timeComponents.slice(0, -1).join(", ") +
-      " and " +
-      timeComponents.slice(-1)
-    );
-  }
-
-  return timeComponents.join(", ");
-}
+};

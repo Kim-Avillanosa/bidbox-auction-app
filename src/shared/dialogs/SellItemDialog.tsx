@@ -17,10 +17,10 @@ import moment from "moment-timezone";
 
 const expirationOptions = [
     { label: "1 min", value: 60000 / 60 }, // 1 minute in milliseconds
-    { label: "1 hour", value: 60000 * 60 }, // 1 hour in milliseconds
-    { label: "2 hours", value: 60000 * 120 }, // 2 hours in milliseconds
-    { label: "5 hours", value: 60000 * 300 }, // 5 hours in milliseconds
-    { label: "10 hours", value: 60000 * 600 }, // 10 hours in milliseconds
+    { label: "1 hour", value: 60000 }, // 1 hour in milliseconds
+    { label: "2 hours", value: 60000 * 2 }, // 2 hours in milliseconds
+    { label: "5 hours", value: 60000 * 5 }, // 5 hours in milliseconds
+    { label: "10 hours", value: 60000 * 10 }, // 10 hours in milliseconds
 ];
 
 const SellItemDialog: React.FC = () => {

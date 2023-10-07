@@ -1,1 +1,1 @@
-**Live Demo** - https://jitera-auction-web-app.vercel.app
+**Live Demo** - https://bidbox-auction-web-app.vercel.app
